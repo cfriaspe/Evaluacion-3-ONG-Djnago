@@ -1,5 +1,5 @@
-from django.shortcuts import render
-from .models import Proveedor
+from django.shortcuts import render, redirect, get_object_or_404
+from .models import Proveedor, Servicio
 from .forms import ProveedorFormulario
 
 # Create your views here.
@@ -39,6 +39,28 @@ def nuevo_proveedor(request):
             datos["form"] = ProveedorFormulario
     
     return render(request, 'core/test.html', datos)
+
+def modificar_proveedor(request, rut):
+    
+    proveedor = get_object_or_404(Proveedor, rut=rut)
+    
+    datos = {
+        'form': ProveedorFormulario(instance=proveedor)
+    }
+    if request.method == 'POST':
+        modificarProveedor = ProveedorFormulario(data=request.POST, instance=proveedor)
+        if modificarProveedor.is_valid():
+           modificarProveedor.save()
+           return redirect(to="Listado-proveedor")
+        datos["form"] = modificarProveedor
+    return render(request, 'core/modificar.html', datos)
+
+def eliminar_proveedor(request, rut):
+
+    proveedor = get_object_or_404(Proveedor, rut=rut)
+    proveedor.delete()
+    return redirect(to="Listado-proveedor")
+
 
 
 
