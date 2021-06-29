@@ -49,7 +49,6 @@
                             <th>Razon_Social</th>
                             <th>Descripcion</th>
                             <th>Servicio</th>
-                            <th>Opciones</th>
                         </tr>
                     </thead>
                     {% for proveedor in proveedor %}
@@ -59,10 +58,6 @@
                             <td>{{proveedor.razon_social}}</td>
                             <td>{{proveedor.descripcion}}</td>
                             <td>{{proveedor.Servicio}}</td>
-                            <td>
-                                <a href="{% url 'Modificar_proveedor' proveedor.rut %}" class="btn btn-info btn-sm">modificar</a>
-                                <a href="{% url 'eliminar_proveedor' proveedor.rut %}" class="btn btn-danger btn-sm">eliminar</a>
-                            </td>
                         </tr>
                     </tbody>
                     {% endfor %}
